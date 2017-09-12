@@ -14,7 +14,6 @@
 	</div>
 </template>
 <script type="text/ecmascript-6">
-  alert('ccc')
   import {getRecommend} from 'api/recommend'
   import {ERR_OK} from 'api/config'
   export default {
@@ -24,7 +23,6 @@
     methods: {
       _getRecommend() {
         getRecommend().then((res) => {
-          console.log('ddd')
           if (res.code === ERR_OK) {
             console.log(res.data.slider)
           }
@@ -32,8 +30,6 @@
       }
     }
   }
-</script>
-<script type="text/javascript">
 </script>
 <style scoped lang="stylus" rel="stylesheet/stylus">
 	@import "~common/stylus/variable"
