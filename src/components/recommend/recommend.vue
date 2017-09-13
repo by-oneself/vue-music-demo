@@ -44,7 +44,6 @@
         })
       },
       _getDiscList() {
-        console.log('ccc')
         getDiscList().then((res) => {
           console.log(res)
           if (res.code === ERR_OK) {
