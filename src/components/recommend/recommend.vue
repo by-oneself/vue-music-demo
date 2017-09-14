@@ -26,11 +26,15 @@
 					</ul>
 				</div>
 			</div>
+			<div class="loading-container" v-show="!discList.length">
+			  <loading></loading>
+			</div>
 		</scroll>
 	</div>
 </template>
 <script type="text/ecmascript-6">
   import Scroll from 'base/scroll/scroll'
+  import Loading from 'base/loading/loading'
   import {getRecommend, getDiscList} from 'api/recommend'
   import Slider from 'base/slider/slider'
   import {ERR_OK} from 'api/config'
@@ -43,12 +47,11 @@
     },
     components: {
       Slider,
-      Scroll
+      Scroll,
+      Loading
     },
     created() {
-      setTimeout(() => {
-        this._getRecommend()
-      }, 2000)
+      this._getRecommend()
       this._getDiscList()
     },
     methods: {
