@@ -9,6 +9,7 @@
   import {ERR_OK} from 'api/config'
   import Singer from 'common/js/singer'
   import listView from 'base/listview/listview'
+
   const HOT_NAME = '热门'
   const HOT_SINGER_LEN = 10
   export default {
