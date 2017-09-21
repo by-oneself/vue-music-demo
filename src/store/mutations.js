@@ -1,4 +1,4 @@
-import * as types from './mutations-types'
+import * as types from './mutation-types'
 
 const matutaions = {
   [types.SET_SINGER](state, singer) {

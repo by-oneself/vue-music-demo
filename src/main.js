@@ -2,20 +2,25 @@ import 'babel-polyfill'
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import store from './store'
 import fastclick from 'fastclick'
-import VueLazyLoad from 'vue-lazyload'
+import VueLazyload from 'vue-lazyload'
+import store from './store'
 
 import 'common/stylus/index.styl'
 
-fastclick.attach(document.body)
-/* eslint-disable no-new */
+/* eslint-disable no-unused-vars */
+// import vConsole from 'vconsole'
 
-Vue.use(VueLazyLoad, {
+fastclick.attach(document.body)
+
+Vue.use(VueLazyload, {
   loading: require('common/image/default.gif')
 })
+
+/* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
+  store,
   render: h => h(App)
 })
