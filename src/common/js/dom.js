@@ -19,3 +19,33 @@ export function getData(el, name, val) {
   }
   return el.getAttribute(prefix + name)
 }
+
+let elementStyle = document.createElement('div').style
+let verdor = (() => {
+  let transformNames = {
+    webkit: 'webkitTransform',
+    Moz: 'MozTransform',
+    0: 'OTransform',
+    ms: 'msTransform',
+    standard: 'transform'
+  }
+
+  for (let key in transformNames) {
+    if (elementStyle[transformNames[key]] !== undefined) {
+      return key
+    }
+  }
+
+  return false
+})()
+
+export function prefixStyle(style) {
+  if (verdor === false) {
+    return false
+  }
+
+  if (verdor === 'standard') {
+    return style
+  }
+  return verdor + style.charAt(0).toUpperCase() + style.substr(1)
+}
