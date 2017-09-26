@@ -76,13 +76,13 @@
   import {prefixStyle} from 'common/js/dom'
   const transform = prefixStyle('transform')
   export default {
+    data() {
+      return {
+        songReady: false,
+        currentTime: 0
+      }
+    },
     computed: {
-      data() {
-        return {
-          songReady: false,
-          currentTime: 0
-        }
-      },
       cdCls() {
         return this.playing ? 'play' : 'play pause'
       },
