@@ -26,13 +26,13 @@
 						<div class="icon i-left">
 							<i class="icon-sequence"></i>
 						</div>
-						<div class="icon i-left">
+						<div class="icon i-left" :class="disableCls">
 							<i @click="prev" class="icon-prev"></i>
 						</div>
-						<div class="icon i-center">
+						<div class="icon i-center" :class="disableCls">
 							<i @click="togglePlaying" :class="playIcon"></i>
 						</div>
-						<div class="icon i-right">
+						<div class="icon i-right" :class="disableCls">
 							<i @click="next" class="icon-next"></i>
 						</div>
 						<div class="icon i-right">
@@ -83,6 +83,9 @@
       },
       miniInco() {
         return this.playing ? 'icon-pause-mini' : 'icon-play-mini'
+      },
+      disableCls() {
+        return this.songReady ? '' : 'disable'
       },
       ...mapGetters([
         'fullScreen',
@@ -177,6 +180,7 @@
         this.songReady = true
       },
       error() {
+        this.songReady = true
       },
       _getPosAndScale() {
         const targetWidth = 40
