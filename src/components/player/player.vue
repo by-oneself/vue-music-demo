@@ -12,25 +12,32 @@
 					<h1 class="title" v-html="currentSong.name"></h1>
 					<h2 class="subtitle" v-html="currentSong.singer"></h2>
 				</div>
-				<div class="middle" @touchstart.prevent="middleTouchStart" @touchmove.prevent="middleTouchMove" @touchend="middleTouchEnd">
-					<div class="middle-l" ref="middleL">
-						<div class="cd-wrapper" ref="cdWrapper">
-							<div class="cd" :class="cdCls">
-								<img class="image" :src="currentSong.image">
-							</div>
-						</div>
-						<div class="playing-lyric-wrapper">
-							<div class="playing-lyric">{{playingLyric}}</div>
-						</div>
-					</div>
-					<scroll class="middle-r" ref="lyricList" :data="currentLyric && currentLyric.lines">
-						<div class="lyric-wrapper">
-							<div v-if="currentLyric">
-								<p ref="lyricLine" :class="{'current' : currentLineNum === index}" class="text" v-for="(line,index) in currentLyric.lines">{{line.txt}}</p>
-							</div>
-						</div>
-					</scroll>
-				</div>
+				<div class="middle"
+				             @touchstart.prevent="middleTouchStart"
+				             @touchmove.prevent="middleTouchMove"
+				             @touchend="middleTouchEnd"
+				        >
+				          <div class="middle-l" ref="middleL">
+				            <div class="cd-wrapper" ref="cdWrapper">
+				              <div class="cd" :class="cdCls">
+				                <img class="image" :src="currentSong.image">
+				              </div>
+				            </div>
+				            <div class="playing-lyric-wrapper">
+				              <div class="playing-lyric">{{playingLyric}}</div>
+				            </div>
+				          </div>
+				          <scroll class="middle-r" ref="lyricList" :data="currentLyric && currentLyric.lines">
+				            <div class="lyric-wrapper">
+				              <div v-if="currentLyric">
+				                <p ref="lyricLine"
+				                   class="text"
+				                   :class="{'current': currentLineNum ===index}"
+				                   v-for="(line,index) in currentLyric.lines">{{line.txt}}</p>
+				              </div>
+				            </div>
+				          </scroll>
+				        </div>
 				<div class="bottom">
 					<div class="dot-wrapper">
 						<span class="dot" :class="{'active':currentShow==='cd'}"></span>
@@ -218,6 +225,7 @@
         }
         if (this.playlist.length === 1) {
           this.loop()
+          return
         } else {
           let index = this.currentIndex + 1
           if (index === this.playlist.length) {
@@ -227,8 +235,8 @@
           if (!this.playing) {
             this.togglePlaying()
           }
-          this.songReady = false
         }
+        this.songReady = false
       },
       prev() {
         if (!this.songReady) {
@@ -236,6 +244,7 @@
         }
         if (this.playlist.length === 1) {
           this.loop()
+          return
         } else {
           let index = this.currentIndex - 1
           if (index === -1) {
@@ -245,8 +254,8 @@
           if (!this.playing) {
             this.togglePlaying()
           }
-          this.songReady = false
         }
+        this.songReady = false
       },
       ready() {
         this.songReady = true
@@ -293,11 +302,13 @@
       },
       getLyric() {
         this.currentSong.getLyric().then((lyric) => {
+          if (this.currentSong.lyric !== lyric) {
+            return
+          }
           this.currentLyric = new Lyric(lyric, this.handleLyric)
           if (this.playing) {
             this.currentLyric.play()
           }
-          console.log(this.currentLyric)
         }).catch(() => {
           this.currentLyric = null
           this.playingLyric = ''
